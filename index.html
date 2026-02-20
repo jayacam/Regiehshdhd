@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Regie ✨</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#120a1f;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.12);
+      --stroke: rgba(255,255,255,.18);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --faint: rgba(255,255,255,.55);
+      --accent1:#ff86c8;
+      --accent2:#8be9ff;
+      --accent3:#baffc9;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 22px;
+      --radius2: 16px;
+      --speed: 700ms;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--font);
+      color: var(--text);
+      overflow-x:hidden;
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(255,134,200,.16), transparent 60%),
+        radial-gradient(900px 700px at 80% 20%, rgba(139,233,255,.16), transparent 55%),
+        radial-gradient(900px 800px at 60% 90%, rgba(186,255,201,.14), transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+    }
+
+    /* soft grain */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="260" height="260" filter="url(%23n)" opacity=".25"/></svg>');
+      mix-blend-mode:overlay;
+      opacity:.12;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    /* floating blobs */
+    .blob{
+      position:fixed;
+      width:560px; height:560px;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity:.28;
+      z-index:0;
+      pointer-events:none;
+      animation: drift 14s ease-in-out infinite;
+    }
+    .blob.b1{ background: radial-gradient(circle at 30% 30%, rgba(255,134,200,.9), rgba(255,134,200,0)); left:-220px; top:-200px;}
+    .blob.b2{ background: radial-gradient(circle at 30% 30%, rgba(139,233,255,.9), rgba(139,233,255,0)); right:-240px; top:-180px; animation-delay: -4s;}
+    .blob.b3{ background: radial-gradient(circle at 30% 30%, rgba(186,255,201,.9), rgba(186,255,201,0)); left:15%; bottom:-280px; animation-delay: -8s;}
+
+    @keyframes drift{
+      0%,100%{ transform: translate(0,0) scale(1);}
+      50%{ transform: translate(22px,-18px) scale(1.05);}
+    }
+
+    /* layout */
+    .wrap{
+      position:relative;
+      z-index:1;
+      width:min(1120px, 92vw);
+      margin: 34px auto 90px;
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+    }
+
+    .topbar{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 14px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 240px;
+    }
+    .logo{
+      width:42px; height:42px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.9), rgba(255,255,255,0) 40%),
+        linear-gradient(135deg, rgba(255,134,200,.95), rgba(139,233,255,.85));
+      box-shadow: 0 12px 28px rgba(255,134,200,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 90deg, transparent 0 30%, rgba(255,255,255,.35) 35%, transparent 40% 100%);
+      animation: shine 2.6s linear infinite;
+      opacity:.75;
+    }
+    @keyframes shine{ to{ transform: rotate(360deg);} }
+
+    .brand h1{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color: var(--muted);
+    }
+    .brand p{ margin:0; font-size:12px; color: var(--faint);}
+
+    .controls{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      cursor:pointer;
+      user-select:none;
+      transition: transform 200ms ease, background 200ms ease, border-color 200ms ease;
+    }
+    .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.26);}
+    .pill:active{ transform: translateY(0px) scale(.99);}
+
+    .pill .dot{
+      width:10px; height:10px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(255,134,200,.10);
+    }
+    .pill small{ font-size:12px; opacity:.85; letter-spacing:.02em;}
+
+    /* hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 16px;
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card-inner{ padding: 22px; }
+
+    .headline{
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      width:max-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.16);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing:.03em;
+    }
+    .spark{
+      width:10px; height:10px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(255,255,255,0) 55%),
+                  linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow: 0 0 16px rgba(255,134,200,.35);
+    }
+
+    .headline h2{
+      margin:0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+    }
+    .headline h2 .grad{
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .headline p{
+      margin:0;
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 64ch;
+    }
+
+    .cta-row{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 14px;
+      align-items:center;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 650;
+      color: rgba(8,10,18,.92);
+      background: linear-gradient(135deg, rgba(255,134,200,.95), rgba(139,233,255,.85));
+      box-shadow: 0 16px 32px rgba(255,134,200,.15);
+      transition: transform 200ms ease, filter 200ms ease;
+    }
+    .btn:hover{ transform: translateY(-2px); filter:saturate(1.08) contrast(1.05);}
+    .btn:active{ transform: translateY(0px) scale(.99);}
+
+    .btn.secondary{
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+
+    .mini{
+      font-size:12px;
+      color: var(--faint);
+    }
+
+    /* right hero "portrait" */
+    .portrait{
+      padding: 0;
+      display:grid;
+      place-items:stretch;
+    }
+    .portrait .pane{
+      padding: 22px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .badge{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    .badge .left{
+      display:flex; align-items:center; gap:10px;
+      min-width: 0;
+    }
+    .avatar{
+      width:44px; height:44px; border-radius: 16px;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.9), rgba(255,255,255,0) 42%),
+        linear-gradient(135deg, rgba(139,233,255,.95), rgba(186,255,201,.85));
+      position:relative;
+      overflow:hidden;
+      box-shadow: 0 16px 28px rgba(139,233,255,.12);
+    }
+    .avatar::after{
+      content:"";
+      position:absolute; inset:-55%;
+      background: conic-gradient(from 0deg, transparent 0 45%, rgba(255,255,255,.35) 55%, transparent 65% 100%);
+      animation: shine 3.2s linear infinite reverse;
+      opacity:.85;
+    }
+
+    .badge h3{
+      margin:0;
+      font-size: 14px;
+      letter-spacing: .01em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .badge p{
+      margin:0;
+      font-size: 12px;
+      color: var(--faint);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .meter{
+      display:flex; flex-direction:column; gap:8px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .meter .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .bar{
+      height: 10px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      overflow:hidden;
+      position:relative;
+    }
+    .bar > i{
+      display:block;
+      height:100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      box-shadow: 0 0 24px rgba(255,134,200,.25);
+      transition: width var(--speed) cubic-bezier(.2,.9,.2,1);
+    }
+
+    .portrait .hint{
+      font-size: 12px;
+      color: var(--faint);
+      line-height:1.6;
+    }
+
+    /* sections grid */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .section-title{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom: 14px;
+    }
+    .section-title h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: .01em;
+    }
+    .section-title span{
+      font-size: 12px;
+      color: var(--faint);
+    }
+
+    /* reason cards deck */
+    .deck{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .r-card{
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      transition: transform 220ms ease, background 220ms ease, border-color 220ms ease;
+      min-height: 96px;
+      position:relative;
+      overflow:hidden;
+    }
+    .r-card:hover{ transform: translateY(-2px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22);}
+    .r-card:active{ transform: translateY(0px) scale(.99);}
+
+    .r-card .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      font-size: 11px;
+      color: var(--muted);
+      width: max-content;
+    }
+    .r-card .tag i{
+      width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      opacity:.95;
+    }
+    .r-card h4{ margin:10px 0 0; font-size: 13.5px;}
+    .r-card p{ margin:6px 0 0; font-size: 12.5px; color: var(--muted); line-height:1.55;}
+
+    .r-card::after{
+      content:"";
+      position:absolute; inset:-40%;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,134,200,.18), transparent 55%),
+        radial-gradient(circle at 70% 50%, rgba(139,233,255,.16), transparent 55%);
+      opacity:.65;
+      transform: rotate(15deg);
+      pointer-events:none;
+    }
+
+    /* love letter typing */
+    .typebox{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding: 14px;
+      min-height: 210px;
+      position:relative;
+    }
+    .typebox pre{
+      margin:0;
+      white-space:pre-wrap;
+      word-wrap:break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.86);
+    }
+    .cursor{
+      display:inline-block;
+      width: 8px;
+      height: 1.1em;
+      margin-left:2px;
+      background: rgba(255,255,255,.65);
+      animation: blink 1s step-start infinite;
+      vertical-align: text-bottom;
+    }
+    @keyframes blink{ 50%{ opacity:0; } }
+
+    .type-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .toggles{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* timeline */
+    .timeline{
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .t-item{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      transition: transform 220ms ease, background 220ms ease;
+    }
+    .t-item:hover{ transform: translateY(-2px); background: rgba(255,255,255,.085);}
+    .t-when{
+      font-size: 12px;
+      color: var(--faint);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      padding-top:2px;
+    }
+    .t-what h4{ margin:0; font-size: 13.5px;}
+    .t-what p{ margin:6px 0 0; font-size: 12.5px; color: var(--muted); line-height:1.55;}
+
+    /* review mode mini */
+    .review{
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .review .panel{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+    }
+    .review .panel h4{ margin:0 0 8px; font-size: 13.5px;}
+    .review .panel p{ margin:0; font-size: 12.5px; color: var(--muted); line-height:1.55;}
+    .quiz{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px;
+    }
+    .chip{
+      border-radius: 999px;
+      padding: 10px 12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      font-size: 12px;
+      color: var(--muted);
+      transition: transform 200ms ease, background 200ms ease, border-color 200ms ease;
+      user-select:none;
+    }
+    .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22);}
+    .chip:active{ transform: translateY(0px) scale(.99);}
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(20px);
+      opacity:0;
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: rgba(10,12,20,.72);
+      border:1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.88);
+      box-shadow: 0 16px 40px rgba(0,0,0,.6);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+      pointer-events:none;
+      transition: transform 260ms ease, opacity 260ms ease;
+      font-size: 12.5px;
+      max-width: min(92vw, 680px);
+      text-align:center;
+      line-height:1.4;
+    }
+    .toast.show{ opacity:1; transform: translateX(-50%) translateY(0);}
+
+    /* hearts */
+    .hearts{
+      position: fixed;
+      inset:0;
+      pointer-events:none;
+      z-index: 2;
+      overflow:hidden;
+    }
+    .heart{
+      position:absolute;
+      font-size: 18px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+      opacity:.0;
+      animation: floatUp linear forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(0) translateX(0) scale(.9) rotate(0deg); opacity:0;}
+      10%{ opacity:.95;}
+      100%{ transform: translateY(-120vh) translateX(var(--drift)) scale(1.2) rotate(var(--rot)); opacity:0;}
+    }
+
+    /* confetti canvas */
+    canvas#confetti{
+      position: fixed;
+      inset:0;
+      pointer-events:none;
+      z-index: 60;
+    }
+
+    /* footer */
+    .footer{
+      text-align:center;
+      color: var(--faint);
+      font-size: 12px;
+      padding: 10px 0 0;
+    }
+
+    /* modal */
+    .modal{
+      position: fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 70;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+    }
+    .modal.show{ display:flex; }
+    .modal-card{
+      width:min(720px, 92vw);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .modal-head{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .modal-head h3{ margin:0; font-size: 14px; letter-spacing:.02em;}
+    .x{
+      width: 38px; height: 38px;
+      border-radius: 12px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      color: var(--muted);
+      transition: transform 200ms ease, background 200ms ease;
+    }
+    .x:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09);}
+    .x:active{ transform: translateY(0px) scale(.99);}
+    .modal-body{ padding: 16px; }
+    .modal-body p{ margin:0; color: var(--muted); line-height:1.75; font-size: 13.5px;}
+
+    /* responsive */
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+      .deck{ grid-template-columns: 1fr; }
+      .t-item{ grid-template-columns: 1fr; }
+      .t-when{ padding-top:0; }
+    }
+
+    /* prefers reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+      .blob, .logo::after, .avatar::after{ display:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="hearts" id="hearts"></div>
+  <canvas id="confetti"></canvas>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>For Regie</h1>
+          <p>a tiny universe of sweet words ✨</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="pill" id="heartBtn" title="Shower him with hearts">
+          <span class="dot" aria-hidden="true"></span>
+          <small>Send hearts</small>
+        </div>
+        <div class="pill" id="surpriseBtn" title="A cute surprise">
+          <span class="dot" aria-hidden="true" style="background:linear-gradient(135deg,var(--accent2),var(--accent3))"></span>
+          <small>Surprise</small>
+        </div>
+        <div class="pill" id="copyBtn" title="Copy a sweet message">
+          <span class="dot" aria-hidden="true" style="background:linear-gradient(135deg,var(--accent3),var(--accent1))"></span>
+          <small>Copy note</small>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <div class="card-inner headline">
+          <div class="kicker">
+            <span class="spark" aria-hidden="true"></span>
+            <span>soft spoken • smart • cute • joker energy</span>
+          </div>
+
+          <h2>
+            Hi <span class="grad">Regie</span> —
+            you make my day feel like
+            <span class="grad">warm light</span>.
+          </h2>
+
+          <p>
+            I made this little page because you’re wildly innocent in the most adorable way,
+            shorter than me (hehe), super smart, and your jokes sometimes hit so fast I need a second
+            to process… but I still end up smiling. Your eyes are pretty, you’re soft spoken, and somehow
+            also very well spoken — like calm confidence, but sweet.
+          </p>
+
+          <div class="cta-row">
+            <button class="btn" id="startLetter">Play the love letter ✍️</button>
+            <button class="btn secondary" id="openReasons">Open “Reasons I Like You”</button>
+            <span class="mini">Tip: click anywhere to sprinkle hearts.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card portrait">
+        <div class="pane">
+          <div class="badge">
+            <div class="left">
+              <div class="avatar" aria-hidden="true"></div>
+              <div style="min-width:0">
+                <h3>Regie’s Vibes (as perceived by me)</h3>
+                <p>innocent + brilliant + gentle + funny</p>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:12px;color:var(--faint)">Status</div>
+              <div style="font-size:13px">✨ adored</div>
+            </div>
+          </div>
+
+          <div class="meter">
+            <div class="row">
+              <span>Smart</span><span id="mSmart">0%</span>
+            </div>
+            <div class="bar"><i id="bSmart"></i></div>
+
+            <div class="row">
+              <span>Cute</span><span id="mCute">0%</span>
+            </div>
+            <div class="bar"><i id="bCute"></i></div>
+
+            <div class="row">
+              <span>Soft-spoken charm</span><span id="mSoft">0%</span>
+            </div>
+            <div class="bar"><i id="bSoft"></i></div>
+
+            <div class="row">
+              <span>Joker energy (I lag sometimes)</span><span id="mJoke">0%</span>
+            </div>
+            <div class="bar"><i id="bJoke"></i></div>
+          </div>
+
+          <div class="hint">
+            When you’re with me during <b>ECE tests or review</b>, it feels like:
+            <span class="grad" style="background:linear-gradient(90deg,var(--accent2),var(--accent1));-webkit-background-clip:text;background-clip:text;color:transparent;">
+              “okay, I can do this.”
+            </span>
+            <br /><br />
+            Press <b>Surprise</b> for something extra cute.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <h3>Love letter (typed just for you)</h3>
+            <span id="letterStatus">ready</span>
+          </div>
+
+          <div class="typebox" aria-live="polite">
+            <pre id="letter"></pre><span class="cursor" id="cursor"></span>
+          </div>
+
+          <div class="type-actions">
+            <div class="toggles">
+              <button class="btn secondary" id="restartLetter">Restart</button>
+              <button class="btn secondary" id="speedBtn">Speed: normal</button>
+            </div>
+            <div class="mini">PS: You can edit the letter text inside the code if you want!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <h3>Our little timeline</h3>
+            <span>tiny memories, big smiles</span>
+          </div>
+
+          <div class="timeline">
+            <div class="t-item">
+              <div class="t-when">During review</div>
+              <div class="t-what">
+                <h4>ECE mode: calm + focus</h4>
+                <p>
+                  When you explain things, it’s like you’re gently organizing the world.
+                  Also… you look extra cute when you’re concentrated.
+                </p>
+              </div>
+            </div>
+
+            <div class="t-item">
+              <div class="t-when">Random moment</div>
+              <div class="t-what">
+                <h4>The “joker” effect</h4>
+                <p>
+                  You drop a joke. I pause. I process.
+                  Then I laugh later and you’re already smiling because you knew it would land. 😭
+                </p>
+              </div>
+            </div>
+
+            <div class="t-item">
+              <div class="t-when">Quiet vibe</div>
+              <div class="t-what">
+                <h4>Soft-spoken, well-spoken</h4>
+                <p>
+                  You don’t need to be loud to be noticed. Your words are careful in the best way —
+                  like you actually mean them.
+                </p>
+              </div>
+            </div>
+
+            <div class="t-item">
+              <div class="t-when">Anytime</div>
+              <div class="t-what">
+                <h4>Pretty eyes alert</h4>
+                <p>
+                  I keep catching myself looking at your eyes like… hello?
+                  How is that even fair.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <h3>Reasons I like you (tap to reveal)</h3>
+            <span>click a card 💗</span>
+          </div>
+
+          <div class="deck" id="deck">
+            <!-- cards generated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner review">
+          <div class="section-title">
+            <h3>ECE Review Mode</h3>
+            <span>tiny interactive thing hehe</span>
+          </div>
+
+          <div class="panel">
+            <h4>Pick the vibe you want today:</h4>
+            <p id="reviewText">
+              Choose one, and I’ll generate a sweet “study pep talk” — Regie-style.
+            </p>
+            <div class="quiz" id="quiz">
+              <div class="chip" data-vibe="calm">Calm & gentle</div>
+              <div class="chip" data-vibe="funny">Funny & motivating</div>
+              <div class="chip" data-vibe="smart">Smart & focused</div>
+              <div class="chip" data-vibe="soft">Soft-spoken support</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h4>Quick “joke processing” button 😭</h4>
+            <p>
+              If he says something funny and you’re buffering… press this.
+            </p>
+            <div class="quiz">
+              <div class="chip" id="processBtn">Process Regie’s joke</div>
+              <div class="chip" id="eyeCompliment">Compliment his eyes</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h4>One last thing</h4>
+            <p>
+              If you ever feel tired: I’ll be the quiet cheerleader beside you.
+              And if you laugh: I’ll keep that moment like a little treasure.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      made with ♡ for Regie — from someone who likes spending time with him (especially during ECE tests/review hehe)
+    </div>
+  </div>
+
+  <!-- modal -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">💗</h3>
+        <button class="x" id="closeModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <p id="modalText"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /**********************
+     * Personalizable bits *
+     **********************/
+    const PERSON = "Regie";
+
+    const loveLetterText = [
+      `Hi ${PERSON},`,
+      ``,
+      `I just want you to know something soft and true:`,
+      `I really like you.`,
+      ``,
+      `You’re wildly innocent in the cutest way — like you still have that gentle goodness`,
+      `that makes people feel safe around you.`,
+      ``,
+      `You’re smart (like… scary smart sometimes), and I love watching your brain work.`,
+      `And your jokes? Please. Sometimes I need a moment to process,`,
+      `but I still end up smiling because it’s you.`,
+      ``,
+      `Your eyes are pretty. Like, genuinely.`,
+      `And you’re soft spoken but also very well spoken —`,
+      `the kind of person who can be quiet and still be heard.`,
+      ``,
+      `I like spending time with you most — especially during ECE tests or review hehe.`,
+      `It feels lighter when you’re there.`,
+      ``,
+      `If you ever wonder: yes, you matter. A lot.`,
+      ``,
+      `— from me (the one who keeps smiling at you)`
+    ].join("\n");
+
+    const reasons = [
+      {
+        tag: "Cute core",
+        title: "You’re adorably innocent",
+        body: "It’s not “naive,” it’s pure. You have that gentle vibe that makes things feel softer."
+      },
+      {
+        tag: "Brain power",
+        title: "You’re so smart",
+        body: "You understand things deeply — and when you explain, it’s calm, clear, and kind."
+      },
+      {
+        tag: "Joker energy",
+        title: "You make me laugh (even if I lag)",
+        body: "Sometimes the joke hits a second later and I’m like— WAIT— and then I’m laughing. Worth it."
+      },
+      {
+        tag: "Soft-spoken",
+        title: "Your voice feels peaceful",
+        body: "Even when you’re joking, there’s this gentle tone that makes me listen."
+      },
+      {
+        tag: "Well-spoken",
+        title: "You choose words well",
+        body: "It’s attractive when someone can be thoughtful without being loud."
+      },
+      {
+        tag: "Pretty eyes",
+        title: "Your eyes are unfairly pretty",
+        body: "I keep noticing them. Like… hello? Why are you like that."
+      },
+      {
+        tag: "Small + mighty",
+        title: "Shorter than me (hehe)",
+        body: "It’s cute. That’s it. That’s the reason. (Also: protect-at-all-costs energy.)"
+      },
+      {
+        tag: "ECE buddy",
+        title: "I love being with you during review",
+        body: "Studying feels less stressful when we’re together. It becomes a little memory."
+      }
+    ];
+
+    /**********************
+     * Utility / UI logic *
+     **********************/
+    const $ = (q, el=document) => el.querySelector(q);
+    const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
+
+    const toast = $("#toast");
+    let toastTimer = null;
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> toast.classList.remove("show"), 2500);
+    }
+
+    // Smooth heart sprinkle on click
+    const heartsLayer = $("#hearts");
+    const heartEmojis = ["💗","💖","💘","💝","💕","✨"];
+    let heartsEnabled = true;
+
+    function spawnHeart(x,y, burst=false){
+      if(!heartsEnabled) return;
+
+      const el = document.createElement("div");
+      el.className = "heart";
+      el.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+      const size = burst ? (16 + Math.random()*18) : (14 + Math.random()*14);
+      el.style.fontSize = size + "px";
+      el.style.left = (x + (Math.random()*18 - 9)) + "px";
+      el.style.top = (y + (Math.random()*18 - 9)) + "px";
+      el.style.setProperty("--drift", (Math.random()*140 - 70) + "px");
+      el.style.setProperty("--rot", (Math.random()*90 - 45) + "deg");
+      const dur = burst ? (1400 + Math.random()*900) : (1800 + Math.random()*1400);
+      el.style.animationDuration = dur + "ms";
+      heartsLayer.appendChild(el);
+      requestAnimationFrame(()=> el.style.opacity = "1");
+      setTimeout(()=> el.remove(), dur + 120);
+    }
+
+    document.addEventListener("pointerdown", (e)=>{
+      if(e.button !== undefined && e.button !== 0) return;
+      spawnHeart(e.clientX, e.clientY);
+    });
+
+    // Buttons: heart shower
+    $("#heartBtn").addEventListener("click", ()=>{
+      const cx = window.innerWidth/2;
+      const cy = window.innerHeight*0.72;
+      for(let i=0;i<18;i++){
+        setTimeout(()=> spawnHeart(cx + (Math.random()*220-110), cy + (Math.random()*40-20), true), i*35);
+      }
+      showToast("Hearts delivered 💗");
+    });
+
+    // Copy note
+    $("#copyBtn").addEventListener("click", async ()=>{
+      const note = `Hi ${PERSON} — just a quick note: I like you. I love your gentle vibe, your smart brain, your jokes (even when I lag), and your pretty eyes. 💗`;
+      try{
+        await navigator.clipboard.writeText(note);
+        showToast("Copied a sweet note to clipboard ✨");
+      }catch{
+        showToast("Clipboard blocked—still, the note is in the code 💗");
+      }
+    });
+
+    // meters animate
+    function animateMeters(){
+      const targets = {
+        smart: 96,
+        cute: 98,
+        soft: 94,
+        joke: 88
+      };
+      const map = [
+        ["#bSmart","#mSmart", targets.smart],
+        ["#bCute","#mCute", targets.cute],
+        ["#bSoft","#mSoft", targets.soft],
+        ["#bJoke","#mJoke", targets.joke],
+      ];
+      map.forEach(([bar, txt, val], idx)=>{
+        setTimeout(()=>{
+          $(bar).style.width = val + "%";
+          const el = $(txt);
+          let n = 0;
+          const step = Math.max(1, Math.floor(val/24));
+          const t = setInterval(()=>{
+            n += step;
+            if(n>=val){ n=val; clearInterval(t); }
+            el.textContent = n + "%";
+          }, 22);
+        }, 120 + idx*120);
+      });
+    }
+    animateMeters();
+
+    // Deck generation
+    const deck = $("#deck");
+    reasons.forEach((r, i)=>{
+      const c = document.createElement("div");
+      c.className = "r-card";
+      c.innerHTML = `
+        <div class="tag"><i aria-hidden="true"></i>${r.tag}</div>
+        <h4>${r.title}</h4>
+        <p>${r.body}</p>
+      `;
+      c.addEventListener("click", ()=>{
+        openModal(`Reason #${i+1} — ${r.title}`, r.body);
+      });
+      deck.appendChild(c);
+    });
+
+    // modal
+    const modal = $("#modal");
+    function openModal(title, text){
+      $("#modalTitle").textContent = title;
+      $("#modalText").textContent = text;
+      modal.classList.add("show");
+    }
+    function closeModal(){ modal.classList.remove("show"); }
+    $("#closeModal").addEventListener("click", closeModal);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+
+    $("#openReasons").addEventListener("click", ()=>{
+      openModal("Reasons I Like You 💗",
+        `You’re innocent and sweet, super smart, funny (even when I need a second to process), soft spoken, well spoken, and your eyes are pretty. Also: ECE review time with you = comfort.`
+      );
+    });
+
+    /**********************
+     * Typewriter letter  *
+     **********************/
+    const letterEl = $("#letter");
+    const cursor = $("#cursor");
+    const statusEl = $("#letterStatus");
+    let typing = false;
+    let speed = 18; // ms per char (normal)
+    let typeTimer = null;
+
+    function setStatus(s){ statusEl.textContent = s; }
+
+    function typeLetter(){
+      if(typing) return;
+      typing = true;
+      setStatus("typing…");
+      letterEl.textContent = "";
+      cursor.style.display = "inline-block";
+
+      let i = 0;
+      const text = loveLetterText;
+      function step(){
+        // pause slightly on line breaks for sweetness
+        const ch = text[i];
+        letterEl.textContent += ch ?? "";
+        i++;
+
+        if(i >= text.length){
+          typing = false;
+          setStatus("finished ✨");
+          cursor.style.display = "none";
+          return;
+        }
+
+        const extraPause = (ch === "\n") ? 90 : 0;
+        typeTimer = setTimeout(step, speed + extraPause);
+      }
+      step();
+    }
+
+    function stopTyping(){
+      clearTimeout(typeTimer);
+      typing = false;
+      setStatus("paused");
+    }
+
+    $("#startLetter").addEventListener("click", typeLetter);
+    $("#restartLetter").addEventListener("click", ()=>{
+      stopTyping();
+      setStatus("ready");
+      typeLetter();
+    });
+
+    const speedBtn = $("#speedBtn");
+    speedBtn.addEventListener("click", ()=>{
+      if(speed === 18){ speed = 8; speedBtn.textContent = "Speed: fast"; showToast("Typewriter set to fast ⚡"); }
+      else if(speed === 8){ speed = 28; speedBtn.textContent = "Speed: slow"; showToast("Typewriter set to slow 🌙"); }
+      else { speed = 18; speedBtn.textContent = "Speed: normal"; showToast("Typewriter set to normal ✨"); }
+    });
+
+    /**********************
+     * Review mode mini   *
+     **********************/
+    const reviewText = $("#reviewText");
+    const vibeLines = {
+      calm: `Okay breathe. One concept at a time. If Regie were here he’d probably say: “You’ve got this—quietly, steadily.”`,
+      funny: `ECE brain on. If Regie cracks a joke mid-review, you can laugh… then go: “Okay focus 😭.” But you’ll still win.`,
+      smart: `Let’s go full smart-mode: define, derive, verify. Your effort is literally building mastery. Regie-level proud.`,
+      soft: `Soft spoken support: “Hey. It’s okay. You’re doing your best. I’m here.” (That’s the vibe.)`
+    };
+
+    $$("#quiz .chip").forEach(chip=>{
+      chip.addEventListener("click", ()=>{
+        const vibe = chip.dataset.vibe;
+        reviewText.textContent = vibeLines[vibe] || "You’ve got this 💗";
+        showToast("ECE pep talk updated ✨");
+      });
+    });
+
+    $("#processBtn").addEventListener("click", ()=>{
+      const lines = [
+        "Processing…",
+        "Processing… still buffering…",
+        "OH 😭 that was funny.",
+        "Laughing now (slightly late) but with full sincerity 💗"
+      ];
+      let idx = 0;
+      reviewText.textContent = lines[idx];
+      const t = setInterval(()=>{
+        idx++;
+        reviewText.textContent = lines[idx];
+        if(idx === lines.length - 1){
+          clearInterval(t);
+          showToast("Joke processed ✅");
+        }
+      }, 520);
+    });
+
+    $("#eyeCompliment").addEventListener("click", ()=>{
+      openModal("About your eyes 👀💗",
+        "Your eyes are really pretty. Like, the kind that makes me pause mid-thought and forget what I was doing for a second."
+      );
+    });
+
+    /**********************
+     * Surprise confetti  *
+     **********************/
+    const confettiCanvas = $("#confetti");
+    const ctx = confettiCanvas.getContext("2d");
+    let confetti = [];
+    let confettiOn = false;
+    function resizeCanvas(){
+      confettiCanvas.width = window.innerWidth * devicePixelRatio;
+      confettiCanvas.height = window.innerHeight * devicePixelRatio;
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+
+    function launchConfetti(){
+      confettiOn = true;
+      confetti = Array.from({length: 170}, ()=>({
+        x: rand(0, window.innerWidth),
+        y: rand(-40, window.innerHeight*0.2),
+        r: rand(2, 5),
+        w: rand(6, 12),
+        h: rand(8, 16),
+        vx: rand(-1.4, 1.4),
+        vy: rand(1.2, 3.6),
+        rot: rand(0, Math.PI),
+        vr: rand(-0.08, 0.08),
+        a: rand(0.55, 0.95),
+        hue: rand(280, 360) // pink-ish palette (still looks nice)
+      }));
+      requestAnimationFrame(tickConfetti);
+      setTimeout(()=>{ confettiOn = false; }, 2400);
+    }
+
+    function tickConfetti(){
+      ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+      confetti.forEach(p=>{
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+        p.vy += 0.02;
+        if(p.y > window.innerHeight + 30){
+          p.y = rand(-60, -10);
+          p.x = rand(0, window.innerWidth);
+          p.vy = rand(1.2, 3.6);
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = p.a;
+        ctx.fillStyle = `hsl(${p.hue} 90% 72%)`;
+        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+        ctx.restore();
+      });
+
+      if(confettiOn) requestAnimationFrame(tickConfetti);
+      else ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+    }
+
+    $("#surpriseBtn").addEventListener("click", ()=>{
+      // cute modal + confetti + heart burst
+      launchConfetti();
+      const cx = window.innerWidth/2;
+      const cy = window.innerHeight*0.55;
+      for(let i=0;i<26;i++){
+        setTimeout(()=> spawnHeart(cx + (Math.random()*260-130), cy + (Math.random()*60-30), true), i*28);
+      }
+      openModal("Surprise ✨",
+        `Regie, if you ever have a day that feels heavy, I hope you remember this: someone out here thinks you’re truly special — cute, smart, gentle, funny, and honestly… easy to like. 💗`
+      );
+    });
+
+    /**********************
+     * Accessibility: focus trap-ish */
+    modal.addEventListener("keydown", (e)=>{
+      if(e.key !== "Tab") return;
+      const focusables = modal.querySelectorAll("button,[href],input,select,textarea,[tabindex]:not([tabindex='-1'])");
+      const first = focusables[0];
+      const last = focusables[focusables.length-1];
+      if(e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+      else if(!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+    });
+  </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
